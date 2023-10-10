@@ -32,7 +32,7 @@ const binInteger = 10;
 // Step 4: Now, let's sum them all!
 const sum = AddBinary( binArray, binString, binInteger );
 
-// The results: "20"
+// The results: "10100"
 console.log(sum);
 ```
 
