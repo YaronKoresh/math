@@ -1,0 +1,31 @@
+{
+  "name": "@yaronkoresh/math",
+  "type": "module",
+  "main": "./index.mjs",
+  "version": "1.0.0",
+  "description": "Implements mathematical operations using String type only, to avoid 32/64 bit integers limits.",
+  "author": "Yaron Koresh <aharonkoresh1@gmail.com>",
+  "scripts": {
+    "test": "node test.mjs"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/YaronKoresh/math/raw/master/LICENSE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YaronKoresh/math.git"
+  },
+ "bugs": {
+    "url": "https://github.com/YaronKoresh/math/issues"
+  },
+ "keywords": [
+    "math",
+    "safe",
+    "string",
+    "factorial",
+    "bigint"
+  ],
+  "dependencies": {
+  }
+}
