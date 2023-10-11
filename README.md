@@ -1,6 +1,6 @@
 # Package & version:
 
-### @yaronkoresh/math v1.0.0
+### @yaronkoresh/math v2.0.0
 
 # Description:
 

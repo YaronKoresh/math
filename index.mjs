@@ -82,33 +82,28 @@ var Power = function(...nums) {
 var Add = function(...nums) {
   nums = [nums].flat().flat();
   nums = nums.map((num) => num.toString().split("").reverse());
-  let ret = ["0"];
-  for (let i = 0; i < Math.max(...nums.map((num) => num.length)); i++) {
-    let sum = 0;
-    nums.map((num) => parseInt(num[i] ?? 0)).map(function(n) {
-      sum += n;
-    });
-    sum = sum.toString().split("").reverse();
-    for (let j = 0; j < sum.length; j++) {
-      let index = j + i;
-      ret[index] = ret[index] ?? "0";
-      let n = (parseInt(ret[index]) + parseInt(sum[j] ?? 0)).toString().split("").reverse();
-      ret[index] = n[0];
-      if (n.length > 1) {
-        index++;
-        n = n.slice(1).join("");
-        let retToBeChanged = ret.slice(index).reverse().join("");
-        ret = ret.slice(0, index + 1);
-        ret.push(...Add(retToBeChanged, n).split("").reverse());
+  let ret = nums[0];
+  nums = nums.slice(1);
+  const _Add = function(num) {
+    let carry = 0;
+    let i = 0;
+    while (true) {
+      let sum = (carry + parseInt(num[i] ?? 0) + parseInt(ret[i] ?? 0)).toString().split("").reverse();
+      ret[i] = sum[0];
+      carry = sum[1] ? parseInt(sum.slice(1).reverse().join("")) : 0;
+      i++;
+      if (i >= num.length && carry == 0) {
+        break;
       }
     }
-  }
+  };
+  nums.map((num) => _Add(num));
   return ret.reverse().join("");
 };
 var AddBinary = function(...bins) {
   bins = [bins].flat().flat();
   bins = bins.map((bin) => bin.toString().split("").reverse());
-  let ret = bins[0];
+  let ret = bins[0].toString();
   bins = bins.slice(1);
   const _AddBinary = function(bin) {
     let carry = 0;
