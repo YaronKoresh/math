@@ -103,7 +103,7 @@ var Add = function(...nums) {
 var AddBinary = function(...bins) {
   bins = [bins].flat().flat();
   bins = bins.map((bin) => bin.toString().split("").reverse());
-  let ret = bins[0].toString();
+  let ret = bins[0];
   bins = bins.slice(1);
   const _AddBinary = function(bin) {
     let carry = 0;
