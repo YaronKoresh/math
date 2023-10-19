@@ -1,46 +1,39 @@
-﻿import { RangedOperation, Greater, Multiply, Divide, Root, Power, Add, Subtract, AddUnsignedBinary, AddBinary } from "./index.mjs";
+﻿import { Add, Multiply, Power, AddBinary, RangedOperation, Greater } from "./index.mjs";
 
 // TEST 1
 
-const test1 = AddBinary( [ "1010", "001" ], "111", 10 ) === "10100";
+const data = [ "2", "4", 2 ];
+const mu = Multiply( data );
+const po = Power( data );
+const po2 = Power( po, po );
+
+const test1 = po2 === "32317006071311007300714876688669951960444102669715484032130345427524655138867890893197201411522913463688717960921898019494119559150490921095088152386448283120630877367300996091750197750389652106796057638384067568276792218642619756161838094338476170470581645852036305042887575891541065808607552399123930385521914333389668342420684974786564569494856176035326322058077805659331026192708460314150258592864177116725943603718461857357598351152301645904403697613233287231227125684710820209725157101726931323469678542580656697935045997268352998638215525166389437335543602135433229604645318478604952148193555853611059596230656" ? true : po2;
 console.log( test1 );
 
 // TEST 2
 
-const test2 = Add( [ 2, -5.5 ], 3.9, 0.044 ) === "0.444";
+const bins = [ 1000, "10", "100", 10 ];
+const sum = AddBinary( bins );
+
+const test2 = sum === "10000" ? true : sum;
 console.log( test2 );
 
 // TEST 3
 
-const test3 = Subtract( 12345.001 , 6789.0001 ) === "5556.0009";
+const end = 4;
+const start = 1;
+const steps = 2;
+const action = "mul";
+const res = RangedOperation( end, start, steps, action );
+
+const test3 = res === "3" ? true : res;
 console.log( test3 );
 
 // TEST 4
 
-const test4 = Power( 450.89, 3 ) === "91666745.039969";
+const num1 = "44444444";
+const num2 = "44444444";
+const greater = Greater( num1, num2 );
+
+const test4 = greater === true ? true : greater;
 console.log( test4 );
-
-// TEST 5
-
-const test5 = Root( -3, 3 ) === "-1.442";
-console.log( test5 );
-
-// TEST 6
-
-const test6 = Divide( -3, 4.6, 16 ) === "-0.6521739130434782";
-console.log( test6 );
-
-// TEST 7
-
-const test7 = Multiply( -3, 3.3 ) === "-9.9";
-console.log( test7 );
-
-// TEST 8
-
-const test8 = Greater( -99999, 0.1 ) === "0.1";
-console.log( test8 );
-
-// TEST 9
-
-const test9 = RangedOperation( 10, 3, 2, "add" ) === "24";
-console.log( test9 );

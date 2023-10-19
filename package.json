@@ -2,7 +2,7 @@
   "name": "@yaronkoresh/math",
   "type": "module",
   "main": "./index.mjs",
-  "version": "3.1.0",
+  "version": "3.0.0",
   "description": "Implements mathematical operations using String type only, to avoid 32/64 bit integers limits.",
   "author": "Yaron Koresh <aharonkoresh1@gmail.com>",
   "scripts": {
@@ -23,7 +23,7 @@
     "math",
     "safe",
     "string",
-    "logic",
+    "factorial",
     "bigint"
   ],
   "dependencies": {

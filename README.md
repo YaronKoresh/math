@@ -1,185 +1,119 @@
-# @yaronkoresh/math: Implements mathematical operations using String type only, to avoid 32/64 bit integers limits.
+# Package & version:
 
-## What it does?
+### @yaronkoresh/math v3.0.0
 
-* Executes mathematic operations using strings.
+# Description:
 
-* Not limited by bits (32/64 or even more).
+### Implements mathematical operations using String type only, to avoid 32/64 bit integers limits.
 
-* Support for float & negative decimals.
+# How the package works?
 
-- - -
+1. Inputs are converted into String type.
 
-## How it works?
-
-1. To avoid errors, Any input is converted into string type, to ensure the string type.
-
-2. Calculations are created and optimized, depend on the chosen operation & the type of the operands.
+2. A text decimal base (0-9) is being used for operations, instead of standard Integer type calculation.
 
 3. Returns a string with the final results.
 
-- - -
+# Example 1:
 
-## Using "AddUnsignedBinary" / "AddBinary":
+```
+import { AddBinary } from "@yaronkoresh/math";
+// or: const { AddBinary } = await import("@yaronkoresh/math");
 
-* Purpose: Addition of binary strings/Arrays.
+// Step 1: Let's create some binary data! (ten & one)
+const binArray = [ "1010", "001" ];
 
-* Parameters:
+// Step 2: Let's create some more binary data! (seven)
+const binString = "111";
 
-* * Binaries: Two binary strings/arrays or more (required).
+// Step 3: And some more... (two)
+const binInteger = 10;
 
-* Examples:
+// Step 4: Now, let's sum them all!
+const sum = AddBinary( binArray, binString, binInteger );
 
-* * `AddBinary( [ "1010", "001" ], "111", 10 )` , which returns "10100".
+// The results: "10100"
+console.log(sum);
+```
 
-* * `AddBinary( 1, 10 )` , which returns "11".
+# Example 2:
 
-- - -
+```
+import { Add } from "@yaronkoresh/math";
+// or: const { Add } = await import("@yaronkoresh/math");
 
-## Using "Add":
+// Step 1: Let's create some decimal data! (ten & one)
+const decimalArray = [ "10", "1" ];
 
-* Purpose: Addition of decimal strings/Arrays.
+// Step 2: Let's create some more decimal data! (seven)
+const decimalString = "7";
 
-* Parameters:
+// Step 3: And some more... (two)
+const decimalInteger = 2;
 
-* * Decimals: Two decimal strings/arrays or more (required).
+// Step 4: Now, let's sum them all!
+const sum = Add( decimalArray, decimalString, decimalInteger );
 
-* Examples:
+// The results: "20"
+console.log(sum);
+```
 
-* * `Add( [ 2, -5.5 ], 3.9, 0.044 )` , which returns "0.444".
+# Example 3:
 
-* * `Add(11.98,-12.97)` , which returns "-0.99".
+```
+import { Multiply, Power } from "@yaronkoresh/math";
+// or: const { Multiply, Power } = await import("@yaronkoresh/math");
 
-- - -
+// Step 1: Create some data.
+const data = [ "2", "4", 2 ];
 
-## Using "Subtract":
+// Step 2: Now let's Multiply!
+const mu = Multiply( data );
 
-* Purpose: Subtraction of decimal strings/Arrays.
+// Step 3: Or calculate the power!
+const po = Power( data );
 
-* Parameters:
+// Step 4: Now, let's power again!
+const po2 = Power( po, po );
 
-* * Decimals: Two decimal strings/arrays or more (required).
+// The results (617 digits! about 2050bit! much longer than 20 digits 64bit maximal bigint!):
+// "32317006071311007300714876688669951960444102669715484032130345427524655138867890893197201411522913463688717960921898019494119559150490921095088152386448283120630877367300996091750197750389652106796057638384067568276792218642619756161838094338476170470581645852036305042887575891541065808607552399123930385521914333389668342420684974786564569494856176035326322058077805659331026192708460314150258592864177116725943603718461857357598351152301645904403697613233287231227125684710820209725157101726931323469678542580656697935045997268352998638215525166389437335543602135433229604645318478604952148193555853611059596230656"
+console.log(po2);
+```
 
-* Examples:
+# Example 4:
 
-* * `Subtract( 12, 1, 1, 1 )` , which returns "9".
+```
+import { Greater } from "@yaronkoresh/math";
+// or: const { Greater } = await import("@yaronkoresh/math");
 
-* * `Subtract( 12345.001 , 6789.0001 )` , which returns '5556.0009'.
+// Step 1: Number-A is...
+const numA = "63055331425931356166653185391299891453122800006887791482400448714";
 
-- - -
+// Step 2: Number-B is...
+const numB = "500000000000000000000000000000000000000000000000000000000";
 
-## Using "Power":
+// Step 3: Who is bigger?
+const greater = Greater(numA,numB);
 
-* Purpose: Power of decimal strings/Arrays.
+// The results: "63055331425931356166653185391299891453122800006887791482400448714"
+console.log(greater);
+```
 
-* Parameters:
+# Example 5:
 
-* * Decimals: Two decimal strings/arrays or more (required).
+```
+import { RangedOperation } from "@yaronkoresh/math";
+// or: const { RangedOperation } = await import("@yaronkoresh/math");
 
-* Examples:
+// Step 1: Power all the numbers, from 3 to 7 (jumps of 2, just like using: Power(3,5,7) ) 
+const po = RangedOperation(7,3,2,"pow");
 
-* * `Power( 450.89, 3 )` , which returns "91666745.039969".
+// The results: "50031545098999707"
+console.log(po);
+// You also can use "add" & "mul" with a RangedOperation
+```
 
-* * `Power( 49.1, -3 )` , which returns "0.00000844803148236653793528133731594939091847260165".
+# License:
 
-- - -
-
-## Using "Root":
-
-* Purpose: Finds the root of a decimal.
-
-* Parameters:
-
-* * Target: The decimal to get the root from it (required).
-
-* * Power: The root's calculation factor (required).
-
-* * Precision: The amount of digits below the decimal floating point (default = 3).
-
-* Examples:
-
-* * `Root( -3, 3 )` , which returns "-1.442".
-
-* * `Root( 40, 3, 1 )` , which returns "3.4".
-
-- - -
-
-## Using "Divide":
-
-* Purpose: Division of two decimals, with removal of repeating patterns below the floating point (e.g. 0.666666 will become 0.6).
-
-* Parameters:
-
-* * NumberA: The divided number (required).
-
-* * NumberB: The dividing number (required).
-
-* * Precision: The amount of digits below the decimal floating point (default = 6).
-
-* Examples:
-
-* * `Divide( -3, 4.6, 16 )` , which returns "-0.6521739130434782".
-
-* * `Divide( 5.5, 3.3)` , which returns "1.6".
-
-- - -
-
-## Using "Multiply":
-
-* Purpose: Multiplication of two or more decimals.
-
-* Parameters:
-
-* * Decimals: Two decimal strings/arrays or more (required).
-
-* Examples:
-
-* * `Multiply( -3, 3.3 )` , which returns "-9.9".
-
-* * `Multiply( 22.2, 0, 44.1 )` , which returns "0".
-
-- - -
-
-## Using "Greater":
-
-* Purpose: A "greater than" logical expression between two numbers, which returns the greater number, or returns true when the numbers are equal.
-
-* Parameters:
-
-* * NumberA: First number (required).
-
-* * NumberB: Second number (required).
-
-* Examples:
-
-* * `Greater( -0, 0.0 )` , which returns true.
-
-* * `Greater( -99999, 0.1 )` , which returns "0.1".
-
-- - -
-
-## Using "RangedOperation":
-
-* Purpose: Apply an operation on a range of numbers. Can be use for "factorial" style operations.
-
-* Parameters:
-
-* * End: The maximum number to calculate (required).
-
-* * Start: The minimum number to calculate (default = 1).
-
-* * Step: The size for each jump between numbers (default = 1).
-
-* * Action: The operation to be used on each number. Could be "mul", "pow" or "add" (default = "mul").
-
-* Examples:
-
-* * `RangedOperation( 5 )` , which returns "120".
-
-* * `RangedOperation( 10, 3, 2, "add" )` , which returns "24".
-
-- - -
-
-## License:
-
-### This project is licensed under the MIT open-source license.
+### This project is licensed under MIT open-source license.
