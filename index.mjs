@@ -174,6 +174,12 @@ var Multiply = function(...nums) {
     let negative = !negativeRet && negativeNum || negativeRet && !negativeNum;
     ret1 = ret1.replace("-", "");
     a = a.replace("-", "");
+    while (ret2.slice(ret2.length - 1) === "0" && ret2.length > 0) {
+      ret2 = ret2.slice(0, ret2.length - 1);
+    }
+    while (b.slice(b.length - 1) === "0" && b.length > 0) {
+      b = b.slice(0, b.length - 1);
+    }
     ret2 = Zeros(ret2, b.length, "right");
     b = Zeros(b, ret2.length, "right");
     let floatLen = ret2.length * 2;
@@ -184,8 +190,8 @@ var Multiply = function(...nums) {
       ret1 = "0";
       ret2 = "0";
     } else {
-      mul = Zeros(mul, floatLen + 1);
-      ret1 = (negative ? "-" : "") + mul.slice(0, mul.length - floatLen);
+      ret1 = mul.slice(0, mul.length - floatLen);
+      ret1 = (ret1 === "" ? negative ? "-0" : "0" : negative ? "-" : "") + ret1;
       ret2 = mul.slice(mul.length - floatLen);
     }
   };
@@ -240,7 +246,7 @@ var Divide = function(num1, num2, precision = "6") {
     }
     let loopValue = "0";
     let rounds = "0";
-    let multi = Math.max(ret3.length - num.length - 1, 0);
+    let multi = Math.max(ret3.split(".")[0].length - num.split(".")[0].length - 1, 0);
     let roundStepSize = "1" + "0".repeat(multi);
     let valueStepSize = num;
     for (let i = "1"; Greater(i, roundStepSize) === roundStepSize; i = Add(i, 1)) {
@@ -281,8 +287,14 @@ var Divide = function(num1, num2, precision = "6") {
         }
         numbersAfterDot += counter;
         if (rest === "0" || numbersAfterDot.length >= parseInt(precision)) {
-          console.log(`Dividing ${_ret} by ${_num} into ` + (negative ? "-" : "") + `${rounds}.${numbersAfterDot}`);
-          return (negative ? "-" : "") + `${rounds}.${numbersAfterDot}`;
+          while (numbersAfterDot.slice(numbersAfterDot.length - 1) === "0") {
+            numbersAfterDot = numbersAfterDot.slice(0, numbersAfterDot.length - 1);
+          }
+          if (numbersAfterDot !== "") {
+            numbersAfterDot = "." + numbersAfterDot;
+          }
+          console.log(`Dividing ${_ret} by ${_num} into ` + (negative ? "-" : "") + `${rounds}${numbersAfterDot}`);
+          return (negative ? "-" : "") + `${rounds}${numbersAfterDot}`;
         }
         rest = Subtract(max, value);
         isRepeatedPattern = IsRepeatedPattern(numbersAfterDot);
@@ -469,8 +481,9 @@ var Power = function(...nums) {
       optimized.b = Subtract(optimized.b, 1);
     }
     sum = sum.replace(".", "");
-    let n = sum.slice(0, sum.length - floatLen);
-    return sign + (n === "" ? "0" : n) + "." + sum.slice(sum.length - floatLen);
+    let n1 = sum.slice(0, sum.length - floatLen);
+    let n2 = "." + sum.slice(sum.length - floatLen);
+    return sign + (n1 === "" ? "0" : n1) + (n2 === "." ? "" : n2);
   };
   const Calc = function(num) {
     console.log(`Calculating: ${ret} ** ${num}`);
@@ -498,7 +511,7 @@ var Power = function(...nums) {
     if (negativeNum) {
       let _ret = ret;
       ret = Divide(1, ret);
-      console.log(`transforming: ${_ret} ==> ${ret} (Reason: negative power)`);
+      console.log(`Transforming: ${_ret} ==> ${ret} (Reason: negative power)`);
     }
   };
   nums.map((num) => Calc(num));
