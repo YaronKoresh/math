@@ -103,7 +103,7 @@ var MultiplyOptimizer = function(high, low) {
       three = Add(three.split(""));
     }
     three = ["3", "6", "9"].includes(three);
-    let five = ["0", "5"].includes(low2.slice(low2.length - 1));
+    let five = ["0", "5"].includes(low2.slice(low2.length - 1)) && low2 !== "0";
     let two = ["2", "4", "6", "8"].includes(low2.slice(low2.length - 1));
     if (five) {
       low2 = Divide(low2, 5);
@@ -147,19 +147,11 @@ var Multiply = function(...nums) {
       num = ret;
       ret = temp;
     }
-    let optimized = {
-      high: ret,
-      low: num
-    };
+    let optimized = MultiplyOptimizer(ret, num);
     let sum = "0";
     while (true) {
       if (Greater("0", optimized.low) !== optimized.low) {
         break;
-      }
-      let _optimized = optimized;
-      optimized = MultiplyOptimizer(optimized.high, optimized.low);
-      if (_optimized.high !== optimized.high) {
-        console.log(`Optimizing multiplication calculation: ${_optimized.high} * ${_optimized.low} ==> ${optimized.high} * ${optimized.low}`);
       }
       sum = Add(sum, optimized.high);
       optimized.low = Subtract(optimized.low, 1);
@@ -379,8 +371,8 @@ var DivisionOptimizer = function(a, b) {
       threeB = Add(threeA.split(""));
     }
     threeB = ["3", "6", "9"].includes(threeB);
-    let fiveA = ["0", "5"].includes(a2.slice(a2.length - 1));
-    let fiveB = ["0", "5"].includes(b2.slice(b2.length - 1));
+    let fiveA = ["0", "5"].includes(a2.slice(a2.length - 1)) && a2 !== "0";
+    let fiveB = ["0", "5"].includes(b2.slice(b2.length - 1)) && b2 !== "0";
     let twoA = ["2", "4", "6", "8"].includes(a2.slice(a2.length - 1));
     let twoB = ["2", "4", "6", "8"].includes(b2.slice(b2.length - 1));
     if (fiveA && fiveB) {
@@ -403,37 +395,6 @@ var DivisionOptimizer = function(a, b) {
     }
   };
   let ret = _DivisionOptimizer(a, b);
-  return ret;
-};
-var PowerOptimizer = function(a, b) {
-  const _PowerOptimizer = function(a2, b2) {
-    let three = b2;
-    while (three.length > 1) {
-      three = Add(three.split(""));
-    }
-    three = ["3", "6", "9"].includes(three);
-    let five = ["0", "5"].includes(b2.slice(b2.length - 1));
-    let two = ["2", "4", "6", "8"].includes(b2.slice(b2.length - 1));
-    if (five) {
-      b2 = Divide(b2, 5);
-      a2 = Multiply(a2, a2, a2, a2, a2);
-      return _PowerOptimizer(a2, b2);
-    } else if (three) {
-      b2 = Divide(b2, 3);
-      a2 = Multiply(a2, a2, a2);
-      return _PowerOptimizer(a2, b2);
-    } else if (two) {
-      b2 = Divide(b2, 2);
-      a2 = Multiply(a2, a2);
-      return _PowerOptimizer(a2, b2);
-    } else {
-      return {
-        a: a2,
-        b: b2
-      };
-    }
-  };
-  let ret = _PowerOptimizer(a, b);
   return ret;
 };
 var Power = function(...nums) {
@@ -463,22 +424,15 @@ var Power = function(...nums) {
       }
     }
     let floatLen = (ret2.split(".")[1] ?? "").length * num;
-    let optimized = {
-      a: ret2.replace(".", ""),
-      b: Subtract(num, 1)
-    };
+    ret2 = ret2.replace(".", "");
+    num = Subtract(num, 1);
     let sum = ret2;
     while (true) {
-      if (Greater("0", optimized.b) !== optimized.b) {
+      if (Greater("0", num) !== num) {
         break;
       }
-      let _optimized = optimized;
-      optimized = PowerOptimizer(optimized.a, optimized.b);
-      if (_optimized.a !== optimized.a) {
-        console.log(`Optimizing power calculation: ${_optimized.a} ** ${_optimized.b} ==> ${optimized.a} ** ${optimized.b}`);
-      }
-      sum = Multiply(sum, optimized.a);
-      optimized.b = Subtract(optimized.b, 1);
+      sum = Multiply(sum, ret2);
+      num = Subtract(num, 1);
     }
     sum = sum.replace(".", "");
     let n1 = sum.slice(0, sum.length - floatLen);
