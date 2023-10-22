@@ -8,9 +8,9 @@ body:
         Thank you for wanting to help!
 
         Please fill in as much of the following form as you're able.
-  - type: input
+  - type: textarea
     attributes:
-      label: Affected URL(s)
+      label: Link(s) to the affected documentation
     validations:
       required: true
   - type: textarea
