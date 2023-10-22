@@ -25,11 +25,10 @@ body:
   - type: dropdown
     attributes:
       label: Does the issue appear inside the browser, inside node, or both?
-      multiple: false
+      multiple: true
       options:
         - Browser
         - Node
-        - Browser & Node
     validations:
       required: true
   - type: textarea
@@ -43,19 +42,7 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: What is the expected behavior? Why is that the expected behavior?
+      label: What is the expected behavior? What do you see instead?
       description: If possible please provide textual output instead of screenshots.
     validations:
       required: true
-  - type: textarea
-    attributes:
-      label: What do you see instead?
-      description: If possible please provide textual output instead of screenshots.
-    validations:
-      required: true
-  - type: textarea
-    attributes:
-      label: Additional information
-      description: Tell us anything else you think we should know.
-    validations:
-      required: false
