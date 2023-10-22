@@ -1,4 +1,4 @@
-﻿import { RangedOperation, Greater, Multiply, Divide, Root, Power, Add, Subtract, AddUnsignedBinary, AddBinary } from "./index.mjs";
+﻿import { hex, base62, base64, Fibonacci, Zeros, GetBit, CountSetBits, CountDiffBits, MeasureBits, Bases, AnyToDecimal, ToDecimal, BinaryToAny, FromBinary, BinaryToDecimal, DecimalToAny, FromDecimal, StringToBytes, BytesToString, SecureRandom, Random, Xor, Bmi, RoundUp, RoundDown, Lcm, Gcd, RangedOperation, Greater, Multiply, Modulus, Mod, Divide, Root, Power, Add, Subtract, AddUnsignedBinary, AddBinary } from "./index.mjs";
 
 // TEST 1
 
@@ -44,3 +44,13 @@ console.log( test8 );
 
 const test9 = RangedOperation( 10, 3, 2, "add" ) === "24";
 console.log( test9 );
+
+// TEST 10
+
+const test10 = Add(-1.5,-0.8) === "-2.3";
+console.log( test10 );
+
+// TEST 11
+
+const test11 = Subtract(-0.7,0.4) === "-1.1";
+console.log( test11 );

@@ -1,4 +1,23 @@
-// ../_tools_/src/Zeros.js
+// ../_tools_/src/Math.js
+var hex = "0123456789ABCDEF";
+var base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+var base62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+var Fibonacci = function(loops) {
+  loops = Subtract(loops, 2);
+  let prev = "0";
+  let current = "1";
+  let ret = ["0", "1"];
+  for (let i = "0"; Greater(i, loops) === loops; i = Add(i, 1)) {
+    current = Add(current, prev);
+    prev = Subtract(current, prev);
+    ret.push(current);
+  }
+  if (loops.includes("-")) {
+    ret = ret.slice(0, parseInt(loops));
+  }
+  ;
+  return ret;
+};
 var Zeros = function(str, len, side = "left") {
   str = str.toString();
   while (str.length < len) {
@@ -10,8 +29,273 @@ var Zeros = function(str, len, side = "left") {
   }
   return str;
 };
-
-// ../_tools_/src/Math.js
+var Split = function(inp, num) {
+  inp = inp.toString();
+  var out = [];
+  for (var i = 0; i < inp.length; i += num) {
+    out.push(inp.slice(i, i + num));
+  }
+  return out;
+};
+var GetBit = function(num, pos) {
+  num = DecimalToAny(num, "01");
+  num = [...num.split("")].reverse().join("");
+  num = num.slice(+pos, +pos + 1);
+  if (num === "") {
+    num = "0";
+  }
+  return num;
+};
+var CountSetBits = function(num) {
+  return DecimalToAny(num, "01").replaceAll("0", "").length;
+};
+var CountDiffBits = function(a, b) {
+  return CountSetBits(Xor(a, b));
+};
+var MeasureBits = function(num) {
+  return DecimalToAny(num, "01").length;
+};
+var Bases = function(str, from, to, padding = "") {
+  str = str.toString();
+  from = from === null ? from : from.toString();
+  to = to === null ? to : to.toString();
+  let toLength = to === null ? null : to.length;
+  if (typeof toLength === "number" && toLength < 2) {
+    return null;
+  }
+  let toBits = toLength === null ? null : MeasureBits(toLength);
+  let toFloatBits = toLength === null ? null : MeasureBits(toLength, false);
+  let toSize = toBits === null ? null : RoundUp(toBits, 8) / toBits;
+  let toFloat = toFloatBits !== parseInt(toFloatBits);
+  let fromLength = from === null ? null : from.length;
+  if (typeof fromLength === "number" && fromLength < 2) {
+    return null;
+  }
+  let fromBits = fromLength === null ? null : MeasureBits(fromLength);
+  let fromFloatBits = fromLength === null ? null : MeasureBits(fromLength, false);
+  let fromSize = fromBits === null ? null : RoundUp(fromBits, 8) / fromBits;
+  let fromFloat = fromFloatBits !== parseInt(fromFloatBits);
+  let num = "";
+  let out = [];
+  if (from === to) {
+    return str;
+  }
+  if (from !== null) {
+    let re = new RegExp("(" + padding + "){1,}$", "g");
+    str = str.replaceAll(re, "");
+  }
+  if (from !== null && to !== null) {
+    if (from === "0123456789") {
+      out = FromDecimal(str, to);
+    } else if (to === "0123456789") {
+      out = ToDecimal(str, from);
+    } else {
+      out = FromDecimal(ToDecimal(str, from), to);
+    }
+  } else if (from === null && to !== null && toFloat === true) {
+    let bytes = StringToBytes(str);
+    let hex2 = bytes.map((byte) => byte.toString(16)).join("");
+    let deci = ToDecimal(hex2.toUpperCase(), "0123456789ABCDEF");
+    out = FromDecimal(deci, to);
+  } else if (from === null && to !== null) {
+    let bytes = StringToBytes(str);
+    let bin2 = bytes.map((byte) => Zeros((+byte).toString(2), 8)).join("");
+    let bin = bin2 + "0".repeat((toBits - bin2.length % toBits) % toBits);
+    out = FromBinary(bin, to);
+  } else if (from !== null && to === null && fromFloat === true) {
+    out = BytesToString(
+      Split(
+        FromDecimal(ToDecimal(str, from), "0123456789ABCDEF"),
+        2
+      ).map(
+        (hx) => ToDecimal(hx, "0123456789ABCDEF")
+      )
+    );
+  } else if (from !== null && to === null) {
+    let charsLength = Split(str, fromSize).length;
+    let bin = ToBinary(str, from);
+    bin = Zeros(bin, RoundUp(bin.length, 8));
+    let bytes = Split(bin.slice(0, charsLength * 8), 8).map((b) => parseInt(b, 2));
+    out = BytesToString(bytes);
+  }
+  if (toSize !== null) {
+    out += padding.repeat((toSize - out.length % toSize) % toSize);
+  }
+  return out;
+};
+var AnyToDecimal = function(str, charset = null) {
+  str = str.toString();
+  let ret = [];
+  if (charset === null) {
+    for (let i = 0; true; i++) {
+      if (typeof str.codePointAt(i) === "undefined") {
+        while (true) {
+          if (ret.length > 1 && ret[0] === "0") {
+            ret = ret.slice(1);
+          } else {
+            return ret.join("");
+          }
+        }
+      }
+      let char = str.split("")[i];
+      ret.push(str.codePointAt(i));
+    }
+  }
+  for (let i = str.length - 1; i >= 0; i--) {
+    let char = str.slice(0, 1);
+    str = str.slice(1);
+    let value = Multiply(Power(charset.length, i), charset.indexOf(char));
+    ret.push(value);
+  }
+  return Add(ret, 0);
+};
+var ToDecimal = AnyToDecimal;
+var BinaryToAny = function(bin, charset = null) {
+  bin = bin.toString();
+  if (charset === null) {
+    let bins2 = Split(bin, 16);
+    let decimals = bins2.map((b) => parseInt(b, 2));
+    return String.fromCodePoint([...decimals].reverse()).toString();
+  }
+  while (bin.slice(0, 1) === "0" && bin.length > 1) {
+    bin = bin.slice(1);
+  }
+  let decimal = "0";
+  let bins = [...bin.split("")].reverse();
+  for (let i = 0; i < bin.length; i++) {
+    if (bins[i] === "1") {
+      let pow = Power(2, i);
+      decimal = Add(decimal, pow);
+    }
+  }
+  return FromDecimal(decimal, charset);
+};
+var FromBinary = BinaryToAny;
+var BinaryToDecimal = function(bin) {
+  bin = bin.toString();
+  let decimal = "0";
+  let bins = [...bin.split("")].reverse();
+  for (let i = 0; i < bin.length; i++) {
+    if (bins[i] === "1") {
+      let pow = Power(2, i);
+      decimal = Add(decimal, pow);
+    }
+  }
+  return decimal;
+};
+var DecimalToAny = function(decimal, charset = null) {
+  decimal = Add(decimal, 0);
+  if (charset === null) {
+    let bin = FromDecimal(decimal, "01");
+    let bins = Split(bin, 16);
+    let decimals = bins.map((b) => parseInt(b, 2));
+    return String.fromCodePoint([...decimals].reverse()).toString();
+  }
+  let encoded = "";
+  let base = charset.length;
+  let cs = charset.split("");
+  let index = "0";
+  let nextStep = Power(base, Add(index, 1));
+  while (true) {
+    if (Greater(decimal, nextStep) === nextStep) {
+      break;
+    } else {
+      index = Add(index, 1);
+      nextStep = Power(base, Add(index, 1));
+    }
+  }
+  for (let i = index; Greater(i, "0") !== "0"; i = Subtract(i, 1)) {
+    let csIndex = cs[1];
+    let pow = Power(base, i);
+    let greater = Greater(pow, decimal);
+    if (greater === pow) {
+      encoded += cs[0];
+      continue;
+    }
+    let step = pow;
+    let nextStep2 = Add(pow, step);
+    while (Greater(decimal, nextStep2) !== nextStep2) {
+      pow = nextStep2;
+      csIndex = Add(csIndex, 1);
+      nextStep2 = Add(pow, step);
+    }
+    decimal = Subtract(decimal, pow);
+    encoded += cs[csIndex];
+  }
+  return encoded;
+};
+var FromDecimal = DecimalToAny;
+var StringToBytes = function(str) {
+  let e = new TextEncoder();
+  let arr = e.encode(str);
+  return [...arr];
+};
+var BytesToString = function(...bytes) {
+  bytes = bytes.flat().map((b) => parseInt(b));
+  bytes = new Uint8Array(bytes);
+  let d = new TextDecoder();
+  return d.decode(bytes);
+};
+var SecureRandom = function(min = "0", max = "100") {
+  min = Add(min, 0);
+  max = Add(max, 0);
+  if (min === max) {
+    return min;
+  }
+  let len = Add(Subtract(max, min), 1);
+  let num = "";
+  while (num.length <= len.length + 1) {
+    let bytes = new Uint32Array(10);
+    num += [...crypto.getRandomValues(bytes)];
+  }
+  num = num.slice(0, len.length + 2);
+  return Add(Mod(num, len), min);
+};
+var Random = SecureRandom;
+var Xor = function(a, b) {
+  a = DecimalToAny(a, "01");
+  b = DecimalToAny(b, "01");
+  a = Zeros(a, b.length);
+  b = Zeros(b, a.length);
+  a = a.split("");
+  b = b.split("");
+  let res = "";
+  for (let i = "0"; i < Math.max(a.length, b.length); i++) {
+    res += (+(a[i] ?? 0) ^ +(b[i] ?? 0)).toString();
+  }
+  return BinaryToDecimal(res);
+};
+var Bmi = function(weight, height) {
+  return Divide(weight, Power(height, 2), 2);
+};
+var RoundUp = function(input, factor) {
+  input = input.toString();
+  factor = factor.toString().replace("-", "");
+  let mod = Mod(input, factor).replace("-", "");
+  if (input.includes("-")) {
+    mod = Subtract(factor, mod);
+  }
+  return Add(Subtract(input, mod), factor);
+};
+var RoundDown = function(input, factor) {
+  input = input.toString();
+  factor = factor.toString().replace("-", "");
+  let mod = Mod(input, factor).replace("-", "");
+  if (input.includes("-")) {
+    mod = Subtract(factor, mod);
+  }
+  return Subtract(input, mod);
+};
+var Lcm = function(a, b) {
+  a = a.toString().replace("-", "");
+  b = b.toString().replace("-", "");
+  return Divide(Multiply(a, b), Gcd(a, b));
+};
+var Gcd = function(a, b) {
+  a = a.toString().replace("-", "");
+  b = b.toString().replace("-", "");
+  return b === "0" ? a : Gcd(b, Mod(a, b));
+};
 var RangedOperation = function(end, start = "1", step = "1", action = "mul") {
   action = action.toString().toLowerCase();
   let ret = start.toString();
@@ -215,7 +499,74 @@ var IsRepeatedPattern = function(str) {
   }
   return false;
 };
+var Modulus = function(...nums) {
+  nums = nums.flat();
+  if (nums.length < 2) {
+    return null;
+  }
+  let ret = nums[0].toString() ?? "0";
+  nums = nums.slice(1);
+  const _Modulus = function(ret2, num) {
+    num = num.toString();
+    let negativeRet = ret2.slice(0, 1) === "-";
+    let negativeNum = num.slice(0, 1) === "-";
+    let negative = negativeRet;
+    let _ret = ret2;
+    let _num = num;
+    ret2 = ret2.replace("-", "");
+    num = num.replace("-", "");
+    num = num.toString();
+    if (Add(ret2, "0") !== "0" && Add(num, "0") === "0") {
+      console.error("A modulus of any negative/positive number by zero is invalid.");
+      return null;
+    }
+    let loopValue = "0";
+    let rounds = "0";
+    let multi = Math.max(ret2.split(".")[0].length - num.split(".")[0].length - 1, 0);
+    let floatLen = num.indexOf(".");
+    let roundStepSize = "1" + "0".repeat(multi);
+    floatLen = floatLen === -1 ? 0 : num.length - floatLen - 1;
+    let valueStepSize = floatLen === 0 ? num + "0".repeat(multi) : floatLen <= multi ? num.replace(".", "") + "0".repeat(multi - floatLen) : num.replace(".", "").slice(0, num.replace(".", "").length - floatLen + multi) + "." + num.replace(".", "").slice(num.replace(".", "").length - floatLen + multi);
+    while (true) {
+      let nextStep = Add(loopValue, valueStepSize);
+      let condition = Greater(nextStep, ret2);
+      if (condition === true) {
+        loopValue = nextStep;
+        rounds = Add(rounds, roundStepSize);
+        break;
+      } else if (condition === ret2) {
+        loopValue = nextStep;
+        rounds = Add(rounds, roundStepSize);
+      } else {
+        if (multi === 0) {
+          break;
+        }
+        multi -= 1;
+        roundStepSize = "1" + "0".repeat(multi);
+        floatLen = valueStepSize.indexOf(".");
+        floatLen = floatLen === -1 ? 0 : valueStepSize.length - floatLen - 1;
+        valueStepSize = floatLen === 1 && valueStepSize.slice(valueStepSize.length - 1) === "0" ? valueStepSize.slice(0, valueStepSize.length - 2) : valueStepSize.slice(valueStepSize.length - 1) === "0" ? valueStepSize.slice(0, valueStepSize.length - 1) : valueStepSize.replace(".", "").slice(0, valueStepSize.replace(".", "").length - floatLen - 1) + "." + valueStepSize.replace(".", "").slice(valueStepSize.replace(".", "").length - floatLen - 1);
+      }
+    }
+    let rest = Subtract(ret2, loopValue);
+    return (negative ? "-" : "") + rest;
+  };
+  const Calc = function(num) {
+    num = num.toString();
+    while (num.slice(".")[0].length > 1 && num.slice(0, 1) === "0") {
+      num = num.slice(1);
+    }
+    while (num.includes(".") && num.slice(num.length - 1) === "0") {
+      num = num.slice(0, num.length - 1);
+    }
+    ret = ret === "0" ? "0" : _Modulus(ret, num);
+  };
+  nums.map((num) => Calc(num));
+  return ret;
+};
+var Mod = Modulus;
 var Divide = function(num1, num2, precision = "6") {
+  precision = Add(precision, 0);
   let nums = [num1, num2];
   if (nums.length < 2) {
     return null;
@@ -264,7 +615,7 @@ var Divide = function(num1, num2, precision = "6") {
         valueStepSize = floatLen === 1 && valueStepSize.slice(valueStepSize.length - 1) === "0" ? valueStepSize.slice(0, valueStepSize.length - 2) : valueStepSize.slice(valueStepSize.length - 1) === "0" ? valueStepSize.slice(0, valueStepSize.length - 1) : valueStepSize.replace(".", "").slice(0, valueStepSize.replace(".", "").length - floatLen - 1) + "." + valueStepSize.replace(".", "").slice(valueStepSize.replace(".", "").length - floatLen - 1);
       }
     }
-    if (loopValue !== ret3) {
+    if (loopValue !== ret3 && Greater(precision, 0) === precision) {
       let rest = Subtract(ret3, loopValue);
       let numbersAfterDot = "";
       let isRepeatedPattern = false;
@@ -574,6 +925,15 @@ var Add = function(...nums) {
     if (test.slice(0, 1) !== "-") {
       test = Zeros(test, floatLen);
     }
+    if (test.replace("-", "").length > ret2.length) {
+      if (test.includes("-")) {
+        ret1 = "-" + Add(ret1.replace("-", ""), "1");
+        test = "-" + test.slice(2);
+      } else {
+        ret1 = Add(ret1, "1");
+        test = test.slice(1);
+      }
+    }
     if (test.slice(0, 1) === "-") {
       test = test.replace("-", "");
       if (ret1.slice(0, 1) !== "-") {
@@ -586,10 +946,6 @@ var Add = function(...nums) {
         ret1 = "-" + ret1;
       }
       test = Subtract("1" + "0".repeat(ret2.length), test);
-    }
-    if (test.length > ret2.length) {
-      ret1 = Add(ret1, "1");
-      test = test.slice(1);
     }
     test = Zeros(test, ret2.length);
     ret2 = test;
@@ -685,6 +1041,15 @@ var Subtract = function(...nums) {
     if (test.slice(0, 1) !== "-") {
       test = Zeros(test, floatLen);
     }
+    if (test.replace("-", "").length > ret2.length) {
+      if (test.includes("-")) {
+        ret1 = "-" + Add(ret1.replace("-", ""), "1");
+        test = "-" + test.slice(2);
+      } else {
+        ret1 = Add(ret1, "1");
+        test = test.slice(1);
+      }
+    }
     if (test.slice(0, 1) === "-") {
       test = test.replace("-", "");
       if (ret1.slice(0, 1) !== "-") {
@@ -697,10 +1062,6 @@ var Subtract = function(...nums) {
         ret1 = "-" + ret1;
       }
       test = Subtract("1" + "0".repeat(ret2.length), test);
-    }
-    if (test.length > ret2.length) {
-      ret1 = Add(ret1, "1");
-      test = test.slice(1);
     }
     test = Zeros(test, ret2.length);
     ret2 = test;
@@ -739,11 +1100,40 @@ export {
   Add,
   AddBinary,
   AddUnsignedBinary,
+  AnyToDecimal,
+  Bases,
+  BinaryToAny,
+  BinaryToDecimal,
+  Bmi,
+  BytesToString,
+  CountDiffBits,
+  CountSetBits,
+  DecimalToAny,
   Divide,
+  Fibonacci,
+  FromBinary,
+  FromDecimal,
+  Gcd,
+  GetBit,
   Greater,
+  Lcm,
+  MeasureBits,
+  Mod,
+  Modulus,
   Multiply,
   Power,
+  Random,
   RangedOperation,
   Root,
-  Subtract
+  RoundDown,
+  RoundUp,
+  SecureRandom,
+  StringToBytes,
+  Subtract,
+  ToDecimal,
+  Xor,
+  Zeros,
+  base62,
+  base64,
+  hex
 };
