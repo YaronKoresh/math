@@ -1,0 +1,68 @@
+name: Report a test
+description: Report a test inside "/tests"
+labels: [test-report]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a problem in one of the test files.
+
+        Please fill in as much of the form below as you're able.
+  - type: input
+    attributes:
+      label: Test 
+      description: The name of the test file.
+      placeholder: e.g. `test_example_file.js`
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Console output
+      description: A pasted console output from a failed test showing the whole failure.
+      render: console
+- type: dropdown
+    attributes:
+      label: Platform
+      description: The platform the test is failing on.
+      multiple: true
+      options:
+        - AIX
+        - FreeBSD
+        - Linux ARM64
+        - Linux ARMv7
+        - Linux PPC64LE
+        - Linux s390x
+        - Linux x64
+        - macOS ARM64
+        - macOS x64
+        - SmartOS
+        - Windows
+        - Other
+  - type: input
+    attributes:
+      label: How consistently the test fails?
+      description: Failure consistently.
+      multiple: false
+      options:
+        - Everytime
+        - Sometimes
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: How the failure could be reproduced locally by us?
+      description: reproduction.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: When the test started failing?
+      description: Timeline.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: Other information.
+    validations:
+      required: false

@@ -1,0 +1,20 @@
+name: 📗 Open an issue regarding the documentations & instructions.
+description: Let us know about any problematic document.
+labels: [doc]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for wanting to help!
+
+        Please fill in as much of the following form as you're able.
+  - type: input
+    attributes:
+      label: Affected URL(s)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description of the problem
+    validations:
+      required: true
