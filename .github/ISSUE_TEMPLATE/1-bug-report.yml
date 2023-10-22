@@ -22,7 +22,7 @@ body:
         Windows: output of `"$([Environment]::OSVersion.VersionString) $(('x86', 'x64')[[Environment]::Is64BitOperatingSystem])"` in PowerShell console
     validations:
       required: true
-  - type: textarea
+  - type: dropdown
     attributes:
       label: Does the issue appear inside the browser, inside node, or both?
       multiple: false
