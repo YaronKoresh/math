@@ -11,6 +11,8 @@ export { IsRepeatedPattern } from "./src/utils/IsRepeatedPattern.js";
 
 export { AddBinary } from "./src/binary/AddBinary.js";
 export { AddUnsignedBinary } from "./src/binary/AddUnsignedBinary.js";
+export { SubtractBinary } from "./src/binary/SubtractBinary.js";
+export { SubtractUnsignedBinary } from "./src/binary/SubtractUnsignedBinary.js";
 export { Xor } from "./src/binary/Xor.js";
 export { GetBit } from "./src/binary/GetBit.js";
 export { CountSetBits } from "./src/binary/CountSetBits.js";
