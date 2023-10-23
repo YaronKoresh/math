@@ -50,7 +50,7 @@
 
 * Before asking general support questions, please make sure you are using the [latest version](https://github.com/YaronKoresh/math/releases/latest).
 
-* When looking for support, please first search for your question in [open or closed issues](https://github.com/issues?utf8=%E2%9C%93&q=sort%3Aupdated-desc+org%3AYaronKoresh+is%3Aissue).
+* When looking for support, please first search for your question in [opened or closed issues](https://github.com/issues?utf8=%E2%9C%93&q=sort%3Aupdated-desc+org%3AYaronKoresh+is%3Aissue).
 
 * GitHub issues are a good way for tracking enhancements and bugs, but also for get some help.
 
