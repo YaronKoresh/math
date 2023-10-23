@@ -19,6 +19,7 @@ let results = [];
 /* 15 */ results.push( AddBinary(-0,0,-1,0,-0) === "-1" );
 /* 16 */ results.push( AddBinary(-0,0) === "0" );
 /* 17 */ results.push( SubtractBinary( [ 0 ], 1, "1" ) === "-10" );
+/* 18 */ results.push( FromDecimal("511","23456789") === "999" );
 
 console.log("\n\n\n");
 

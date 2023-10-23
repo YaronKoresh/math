@@ -903,7 +903,7 @@ var DecimalToAny2 = function(decimal, charset = null) {
     }
   }
   for (let i = index; Greater(i, "0") !== "0"; i = Subtract(i, 1)) {
-    let csIndex = cs[1];
+    let csIndex = 1;
     let pow = Power(base, i);
     let greater = Greater(pow, decimal);
     if (greater === pow) {
