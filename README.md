@@ -36,7 +36,7 @@
 
 * To install the npm package, run: `npm i @yaronkoresh/math`
 
-* To use it inside the browser, add the following tag into the HTML <head>: `<script src="https://unpkg.com/@yaronkoresh/math@latest/dist/bundle.min.js"></script>`.
+* To use it inside the browser, add the following tag into the HTML head tag: `<script src="https://unpkg.com/@yaronkoresh/math@latest/dist/bundle.min.js"></script>`.
 
 - - -
 
