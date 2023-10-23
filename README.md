@@ -40,7 +40,7 @@
 
 - - -
 
-# Basic Usage:
+# Basic usage:
 
 * When using node & npm, import/require a module simply by the standard syntax. The npm package supports both of them.
 
