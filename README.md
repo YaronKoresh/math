@@ -62,17 +62,33 @@
 
 #### Using "AddUnsignedBinary" / "AddBinary":
 
-* Purpose: Addition of binary strings/Arrays.
+* Purpose: Addition of unsigned positive/negative binary strings/Arrays.
 
 * Parameters:
 
-* * Binaries: Two binary strings/arrays or more (required).
+* * Binaries: Two positive/negative binary strings/arrays or more (required).
 
 * Examples:
 
 * * `AddBinary( [ "1010", "001" ], "111", 10 )` , which returns "10100".
 
-* * `AddBinary( 1, 10 )` , which returns "11".
+* * `AddUnsignedBinary( 1, 10 )` , which returns "11".
+
+- - -
+
+#### Using "SubtractUnsignedBinary" / "SubtractBinary":
+
+* Purpose: Subtraction of unsigned positive/negative binary strings/Arrays.
+
+* Parameters:
+
+* * Binaries: Two positive/negative binary strings/arrays or more (required).
+
+* Examples:
+
+* * `SubtractBinary( [ 0 ], 1, "1" )` , which returns "-10".
+
+* * `SubtractUnsignedBinary( 0, -111 )` , which returns "111".
 
 - - -
 
