@@ -20,15 +20,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       with:
-        fetch-depth: 2
+        fetch-depth: 10
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@00e563ead9f72a8461b24876bee2d0c2e8bd2ee8
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@00e563ead9f72a8461b24876bee2d0c2e8bd2ee8
-      with:
-        languages: javascript
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@00e563ead9f72a8461b24876bee2d0c2e8bd2ee8
