@@ -1,0 +1,1 @@
+export { DecimalToAny as FromDecimal } from "./DecimalToAny.js";

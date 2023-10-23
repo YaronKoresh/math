@@ -1,0 +1,1 @@
+export { AnyToDecimal as ToDecimal } from "./AnyToDecimal.js";

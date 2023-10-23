@@ -1,6 +1,18 @@
-# @yaronkoresh/math: Implements mathematical operations using String type only, to avoid 32/64 bit integers limits.
+### @yaronkoresh/math: Implements mathematical operations using String type only, to avoid 32/64 bit integers limits.
 
-## What it does?
+- - -
+
+# About the project:
+
+* The project was created by Yaron Koresh <aharonkoresh1@gmail.com>
+
+* This project supports ESM/CJS & the browser.
+
+* This project is licensed under the MIT open-source license.
+
+- - -
+
+# What it does?
 
 * Executes mathematic operations using strings.
 
@@ -10,7 +22,7 @@
 
 - - -
 
-## How it works?
+# How it works?
 
 1. To avoid errors, Any input is converted into string type, to ensure the string type.
 
@@ -20,7 +32,35 @@
 
 - - -
 
-## Using "AddUnsignedBinary" / "AddBinary":
+# Basic installation:
+
+* To install the npm package, run: `npm i @yaronkoresh/math`
+
+* To use it inside the browser, add the following tag into the HTML header: `<script src="http://unpkg.com/browse/@yaronkoresh/math@latest/dist/bundle.min.js"></script>`.
+
+- - -
+
+# Basic Usage:
+
+* When using node & npm, import/require a module simply by the standard syntax. The npm package supports both of them.
+
+* When using the browser, exports of this project are available under a global object, called `$math`.
+
+# Do you need help?
+
+* Before asking general support questions, please make sure you are using the [latest version](https://github.com/YaronKoresh/???/releases/latest).
+
+* When looking for support, please first search for your question in [open or closed issues](https://github.com/issues?utf8=%E2%9C%93&q=sort%3Aupdated-desc+org%3AYaronKoresh+is%3Aissue).
+
+* GitHub issues are a good way for tracking enhancements and bugs, but also for get some help.
+
+* Feel free to open new issues, using one of the available templates, or create an issue from scratch.
+
+- - -
+
+# What exports are available?
+
+#### Using "AddUnsignedBinary" / "AddBinary":
 
 * Purpose: Addition of binary strings/Arrays.
 
@@ -36,7 +76,7 @@
 
 - - -
 
-## Using "Add":
+#### Using "Add":
 
 * Purpose: Addition of decimal strings/Arrays.
 
@@ -52,7 +92,7 @@
 
 - - -
 
-## Using "Subtract":
+#### Using "Subtract":
 
 * Purpose: Subtraction of decimal strings/Arrays.
 
@@ -68,7 +108,7 @@
 
 - - -
 
-## Using "Power":
+#### Using "Power":
 
 * Purpose: Power of decimal strings/Arrays.
 
@@ -84,7 +124,7 @@
 
 - - -
 
-## Using "Root":
+#### Using "Root":
 
 * Purpose: Finds the root of a decimal.
 
@@ -104,7 +144,7 @@
 
 - - -
 
-## Using "Divide":
+#### Using "Divide":
 
 * Purpose: Division of two decimals, with removal of repeating patterns below the floating point (e.g. 0.666666 will become 0.6).
 
@@ -124,7 +164,7 @@
 
 - - -
 
-## Using "Multiply":
+#### Using "Multiply":
 
 * Purpose: Multiplication of two or more decimals.
 
@@ -140,7 +180,7 @@
 
 - - -
 
-## Using "Greater":
+#### Using "Greater":
 
 * Purpose: A "greater than" logical expression between two numbers, which returns the greater number, or returns true when the numbers are equal.
 
@@ -158,7 +198,7 @@
 
 - - -
 
-## Using "RangedOperation":
+#### Using "RangedOperation":
 
 * Purpose: Apply an operation on a range of numbers. Can be use for "factorial" style operations.
 
@@ -180,7 +220,7 @@
 
 - - -
 
-## Using "Mod" / "Modulus":
+#### Using "Mod" / "Modulus":
 
 * Purpose: Get the remainder of a division operation. applied on two or more decimals.
 
@@ -196,7 +236,7 @@
 
 - - -
 
-## Using "Gcd":
+#### Using "Gcd":
 
 * Purpose: Get the greatest common divisor of two decimals.
 
@@ -214,7 +254,7 @@
 
 - - -
 
-## Using "Lcm":
+#### Using "Lcm":
 
 * Purpose: Get the least common multiply of two decimals.
 
@@ -232,7 +272,7 @@
 
 - - -
 
-## Using "RoundDown":
+#### Using "RoundDown":
 
 * Purpose: Round a decimal, down to the closest lower multiply of the selected factor.
 
@@ -250,7 +290,7 @@
 
 - - -
 
-## Using "RoundUp":
+#### Using "RoundUp":
 
 * Purpose: Round a decimal, up to the closest higher multiply of the selected factor.
 
@@ -268,7 +308,7 @@
 
 - - -
 
-## Using "Bmi":
+#### Using "Bmi":
 
 * Purpose: Calculates the body mass index, using weight & height.
 
@@ -286,7 +326,7 @@
 
 - - -
 
-## Using "Xor":
+#### Using "Xor":
 
 * Purpose: Apply an Exclusive-Or binary operation, on two decimals.
 
@@ -304,7 +344,7 @@
 
 - - -
 
-## Using "Random" / "SecureRandom":
+#### Using "Random" / "SecureRandom":
 
 * Purpose: Generate a cryptographic secure random number, between a minimum & a maximum.
 
@@ -322,7 +362,7 @@
 
 - - -
 
-## Using "StringToBytes":
+#### Using "StringToBytes":
 
 * Purpose: Encodes a string into Utf-8 bytes.
 
@@ -338,7 +378,7 @@
 
 - - -
 
-## Using "BytesToString":
+#### Using "BytesToString":
 
 * Purpose: Decodes Utf-8 bytes back to a string.
 
@@ -354,7 +394,7 @@
 
 - - -
 
-## Using "FromDecimal" / "DecimalToAny":
+#### Using "FromDecimal" / "DecimalToAny":
 
 * Purpose: Convert a decimal into other bases, or into a standard Utf-8 string.
 
@@ -372,7 +412,7 @@
 
 - - -
 
-## Using "BinaryToDecimal":
+#### Using "BinaryToDecimal":
 
 * Purpose: Convert binary digits into a decimal number.
 
@@ -388,7 +428,7 @@
 
 - - -
 
-## Using "FromBinary" / "BinaryToAny":
+#### Using "FromBinary" / "BinaryToAny":
 
 * Purpose: Convert binary digits into other bases, or into a standard Utf-8 string.
 
@@ -406,7 +446,7 @@
 
 - - -
 
-## Using "ToDecimal" / "AnyToDecimal":
+#### Using "ToDecimal" / "AnyToDecimal":
 
 * Purpose: Convert other bases / standard Utf-8 string, into a decimal number.
 
@@ -424,7 +464,7 @@
 
 - - -
 
-## Using "Bases":
+#### Using "Bases":
 
 * Purpose: The master function for bases conversion. Support any base/Utf8 to any base/Utf8.
 
@@ -446,7 +486,7 @@
 
 - - -
 
-## Using "MeasureBits":
+#### Using "MeasureBits":
 
 * Purpose: Counts the bits needed for a decimal binary representation.
 
@@ -462,7 +502,7 @@
 
 - - -
 
-## Using "CountDiffBits":
+#### Using "CountDiffBits":
 
 * Purpose: Counts the binary bits with the same index, between two decimals, that are different ("0" & "1").
 
@@ -480,7 +520,7 @@
 
 - - -
 
-## Using "CountSetBits":
+#### Using "CountSetBits":
 
 * Purpose: Counts the binary bits that are equal to "1".
 
@@ -496,7 +536,7 @@
 
 - - -
 
-## Using "GetBit":
+#### Using "GetBit":
 
 * Purpose: Get the value of a bit inside a specific index,  ordered from low to high.
 
@@ -514,7 +554,7 @@
 
 - - -
 
-## Using "Zeros":
+#### Using "Zeros":
 
 * Purpose: Pad a number with zeros, tp the left, or, to the right side of it. Pad until the textual length equal or more to desired minimal textual length.
 
@@ -534,7 +574,41 @@
 
 - - -
 
-## Using "Fibonacci":
+#### Using "Split":
+
+* Purpose: Split a string into several chunks. Used internally by some operations.
+
+* Parameters:
+
+* * String: The string to be splited (required).
+
+* * Length: The maximum length for each chunk (required).
+
+* Examples:
+
+* * `Split( "hello", 3 )` , which returns ["hel","lo"].
+
+* * `Split( "12345678", 3 )` , which returns ["123","456","78"].
+
+- - -
+
+#### Using "IsRepeatedPattern":
+
+* Purpose: A detector for repeated pattern inside a number. Used by the divide operation to detect endless stream of digits below the decimal point.
+
+* Parameters:
+
+* * Digits: The digits to analyze (required).
+
+* Examples:
+
+* * `IsRepeatedPattern( "363636" )` , which returns true.
+
+* * `IsRepeatedPattern( "033333" )` , which returns true.
+
+- - -
+
+#### Using "Fibonacci":
 
 * Purpose: Generate a fibonacci sequence with a custom length.
 
@@ -550,24 +624,18 @@
 
 - - -
 
-## Using "hex":
+#### Using "hex":
 
 * Purpose: The base16 standard characters, in uppercase: 0123456789ABCDEF.
 
 - - -
 
-## Using "base62":
+#### Using "base62":
 
 * Purpose: The standard characters for base62, which is numbers, then uppercase english, then lowercase english.
 
 - - -
 
-## Using "base64":
+#### Using "base64":
 
 * Purpose: The standard characters for base62, which is uppercase english, then lowercase english, then numbers, and finally, "+" and "/".
-
-- - -
-
-## License:
-
-### This project is licensed under the MIT open-source license.
