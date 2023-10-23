@@ -35,7 +35,8 @@
 		"url": "https://github.com/YaronKoresh/math.git"
 	},
 	"scripts": {
-		"postinstall": "node ./scripts/build.js && node ./scripts/test.js"
+		"build": "node ./scripts/build.js",
+		"test": "node ./scripts/test.js"
 	},
 	"type": "module",
 	"version": "3.4.0"
