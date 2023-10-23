@@ -7,6 +7,8 @@ import { DivisionOptimizer } from "../optimizers/DivisionOptimizer.js";
 
 export const Power = function(...nums) {
 
+	nums = nums.flat();
+
 	if( nums.length < 2 ){
 		return null;
 	}

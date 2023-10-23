@@ -692,6 +692,7 @@ var $math = (() => {
 
   // src/basic/Power.js
   var Power = function(...nums) {
+    nums = nums.flat();
     if (nums.length < 2) {
       return null;
     }

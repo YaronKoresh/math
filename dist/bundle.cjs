@@ -692,6 +692,7 @@ var DivisionOptimizer = function(a, b) {
 
 // src/basic/Power.js
 var Power = function(...nums) {
+  nums = nums.flat();
   if (nums.length < 2) {
     return null;
   }
