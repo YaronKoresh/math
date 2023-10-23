@@ -1,0 +1,1 @@
+export { BinaryToAny as FromBinary } from "./BinaryToAny.js";
