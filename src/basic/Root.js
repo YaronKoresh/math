@@ -34,28 +34,22 @@ export const Root = function( target, power, precision = "3" ){
 	maximumForTesting = maximumForTesting;
 	let currentSteper = Zeros( "1", maximumForTesting.replace("-","").length - 1, "right" );
 	let max = maximumForTesting;
-	console.log(`Root: ${ target } ; Power: ${ power } ; Precision: ${ precision }`);
 	while( true ){
-		console.log(`Root: ${ target } ; Power: ${ power } ; Attempt: ${max}`);
 		let _max = Power( max, power );
 		if( _max === target ){
-			console.log(`Yey! Found an exact match: ${max}`);
 			return sign+max;
 		}
 		let currentPrecision = (currentSteper.split(".")[1] ?? "").length;
 		if( Greater(_max,target) === target ){
 			let condition = Greater(currentPrecision,precision);
 			if( condition === true ){
-				console.log(`Found: ${max} , but will not dive deeper than ${precision} digits.`);
 				return sign+max;
 			}
-			console.log(`Yey! Found: ${max} , Now let's dive deeper...`);
 			let nextSteper = Divide(currentSteper,"10");
 			max = Add(max,currentSteper);
 			max = Subtract(max,nextSteper);
 			currentSteper = nextSteper;
 		} else {
-			console.log(`root ${max} was not matched, keep trying...`);
 			max = Subtract(max,currentSteper);
 		}
 	}

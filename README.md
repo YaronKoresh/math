@@ -46,6 +46,8 @@
 
 * When using the browser, exports of this project are available under a global object, called `$math`.
 
+- - -
+
 # Do you need help?
 
 * Before asking general support questions, please make sure you are using the [latest version](https://github.com/YaronKoresh/math/releases/latest).

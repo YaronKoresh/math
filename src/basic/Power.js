@@ -59,8 +59,6 @@ export const Power = function(...nums) {
 
 	const Calc = function(num){
 
-		console.log(`Calculating: ${ ret } ** ${ num }`);
-
 		let a = num.toString().split(".")[0] ?? "0";
 		let b = num.toString().split(".")[1] ?? "0";
 
