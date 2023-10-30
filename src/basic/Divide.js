@@ -94,7 +94,6 @@ export const Divide = function( num1, num2, precision="6" ){
 					if( numbersAfterDot !== "" ){
 						numbersAfterDot = "." + numbersAfterDot;
 					}
-					console.log(`Dividing ${ _ret  } by ${ _num } into ` + ( negative ? "-" : "" ) + `${ rounds }${ numbersAfterDot }`);
 					return ( negative ? "-" : "" ) + `${ rounds }${ numbersAfterDot }`;
 				}
 

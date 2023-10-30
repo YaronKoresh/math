@@ -441,7 +441,6 @@ var Divide = function(num1, num2, precision = "6") {
           if (numbersAfterDot !== "") {
             numbersAfterDot = "." + numbersAfterDot;
           }
-          console.log(`Dividing ${_ret} by ${_num} into ` + (negative ? "-" : "") + `${rounds}${numbersAfterDot}`);
           return (negative ? "-" : "") + `${rounds}${numbersAfterDot}`;
         }
         rest = Subtract(max, value);
@@ -668,7 +667,6 @@ var Power = function(...nums) {
     return sign + (n1 === "" ? "0" : n1) + (n2 === "." ? "" : n2);
   };
   const Calc = function(num) {
-    console.log(`Calculating: ${ret} ** ${num}`);
     let a = num.toString().split(".")[0] ?? "0";
     let b = num.toString().split(".")[1] ?? "0";
     let negativeNum = a.slice(0, 1) === "-";
@@ -1253,28 +1251,22 @@ var Root2 = function(target, power, precision = "3") {
   maximumForTesting = maximumForTesting;
   let currentSteper = Zeros("1", maximumForTesting.replace("-", "").length - 1, "right");
   let max = maximumForTesting;
-  console.log(`Root: ${target} ; Power: ${power} ; Precision: ${precision}`);
   while (true) {
-    console.log(`Root: ${target} ; Power: ${power} ; Attempt: ${max}`);
     let _max = Power(max, power);
     if (_max === target) {
-      console.log(`Yey! Found an exact match: ${max}`);
       return sign + max;
     }
     let currentPrecision = (currentSteper.split(".")[1] ?? "").length;
     if (Greater(_max, target) === target) {
       let condition = Greater(currentPrecision, precision);
       if (condition === true) {
-        console.log(`Found: ${max} , but will not dive deeper than ${precision} digits.`);
         return sign + max;
       }
-      console.log(`Yey! Found: ${max} , Now let's dive deeper...`);
       let nextSteper = Divide(currentSteper, "10");
       max = Add2(max, currentSteper);
       max = Subtract(max, nextSteper);
       currentSteper = nextSteper;
     } else {
-      console.log(`root ${max} was not matched, keep trying...`);
       max = Subtract(max, currentSteper);
     }
   }
