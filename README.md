@@ -534,7 +534,7 @@
 
 * * `CountDiffBits(0,3)` , which returns "2".
 
-* * `MeasureBits(10,1)` , which returns "3".
+* * `CountDiffBits(10,1)` , which returns "3".
 
 - - -
 
@@ -548,7 +548,7 @@
 
 * Examples:
 
-* * `MeasureBits(8)` , which returns "1".
+* * `CountSetBits(8)` , which returns "1".
 
 * * `CountSetBits(12)` , which returns "2".
 
