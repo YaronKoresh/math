@@ -1,4 +1,4 @@
-### @yaronkoresh/math: Implements mathematical operations using String type only, to avoid 32/64 bit integers limits.
+### @yaronkoresh/math: Execute unlimited size mathematics, on positive/negative integers/floats.
 
 - - -
 
