@@ -1,4 +1,4 @@
-### @yaronkoresh/math: Execute unlimited size mathematics, on positive/negative integers/floats.
+### @yaronkoresh/math: Execute unlimited size mathematics, on positive/negative integers/decimals.
 
 - - -
 
