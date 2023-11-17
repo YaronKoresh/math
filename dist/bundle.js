@@ -23,7 +23,7 @@ var $math = (() => {
     Add: () => Add2,
     AddBinary: () => AddUnsignedBinary,
     AddUnsignedBinary: () => AddUnsignedBinary,
-    AnyToDecimal: () => AnyToDecimal2,
+    AnyToDecimal: () => AnyToDecimal,
     Bases: () => Bases,
     BinaryToAny: () => BinaryToAny,
     BinaryToDecimal: () => BinaryToDecimal,
@@ -57,7 +57,7 @@ var $math = (() => {
     Subtract: () => Subtract,
     SubtractBinary: () => SubtractUnsignedBinary,
     SubtractUnsignedBinary: () => SubtractUnsignedBinary,
-    ToDecimal: () => AnyToDecimal2,
+    ToDecimal: () => AnyToDecimal,
     Xor: () => Xor,
     Zeros: () => Zeros,
     base62: () => base62,
@@ -1126,7 +1126,7 @@ var $math = (() => {
   };
 
   // src/charset/AnyToDecimal.js
-  var AnyToDecimal2 = function(str, charset = null) {
+  var AnyToDecimal = function(str, charset = null) {
     str = str.toString();
     let ret = [];
     if (charset === null) {
@@ -1224,14 +1224,14 @@ var $math = (() => {
       if (from === "0123456789") {
         out = DecimalToAny(str, to);
       } else if (to === "0123456789") {
-        out = AnyToDecimal2(str, from);
+        out = AnyToDecimal(str, from);
       } else {
-        out = DecimalToAny(AnyToDecimal2(str, from), to);
+        out = DecimalToAny(AnyToDecimal(str, from), to);
       }
     } else if (from === null && to !== null && toFloat === true) {
       let bytes = StringToBytes(str);
       let hex2 = bytes.map((byte) => byte.toString(16)).join("");
-      let deci = AnyToDecimal2(hex2.toUpperCase(), "0123456789ABCDEF");
+      let deci = AnyToDecimal(hex2.toUpperCase(), "0123456789ABCDEF");
       out = DecimalToAny(deci, to);
     } else if (from === null && to !== null) {
       let bytes = StringToBytes(str);
@@ -1241,10 +1241,10 @@ var $math = (() => {
     } else if (from !== null && to === null && fromFloat === true) {
       out = BytesToString(
         Split(
-          DecimalToAny(AnyToDecimal2(str, from), "0123456789ABCDEF"),
+          DecimalToAny(AnyToDecimal(str, from), "0123456789ABCDEF"),
           2
         ).map(
-          (hx) => AnyToDecimal2(hx, "0123456789ABCDEF")
+          (hx) => AnyToDecimal(hx, "0123456789ABCDEF")
         )
       );
     } else if (from !== null && to === null) {
