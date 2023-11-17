@@ -84,7 +84,7 @@ export const Bases = function( str, from, to, padding = "" ){
 
 		let charsLength = Split(str,fromSize).length;
 
-		let bin = FromDecimal( AnyToDecimal( str, from ), "01" );
+		let bin = FromDecimal( ToDecimal( str, from ), "01" );
 		bin = Zeros( bin, RoundUp( bin.length , 8 ) );
 
 		let bytes = Split( bin.slice(0,charsLength*8) , 8 ).map( b => parseInt(b,2) );
