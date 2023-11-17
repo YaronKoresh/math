@@ -9,5 +9,8 @@ export const RoundUp = function(input,factor){
 	if( input.includes("-") ){
 		mod = Subtract(factor,mod)
 	}
+	if( Add(input,0) === Add(factor,0) ){
+		return Add(input,0);
+	}
 	return Add( Subtract(input, mod), factor );
 }

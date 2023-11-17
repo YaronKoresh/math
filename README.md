@@ -1,4 +1,4 @@
-### @yaronkoresh/math: Execute unlimited size mathematics, on positive/negative integers/decimals.
+### @yaronkoresh/math: Implements mathematical operations using String type only, to avoid 32/64 bit integers limits.
 
 - - -
 
@@ -534,7 +534,7 @@
 
 * * `CountDiffBits(0,3)` , which returns "2".
 
-* * `CountDiffBits(10,1)` , which returns "3".
+* * `MeasureBits(10,1)` , which returns "3".
 
 - - -
 
@@ -548,7 +548,7 @@
 
 * Examples:
 
-* * `CountSetBits(8)` , which returns "1".
+* * `MeasureBits(8)` , which returns "1".
 
 * * `CountSetBits(12)` , which returns "2".
 
