@@ -880,10 +880,10 @@ var AddUnsignedBinary = function(...bins) {
 };
 
 // src/charset/DecimalToAny.js
-var DecimalToAny2 = function(decimal, charset = null) {
+var DecimalToAny = function(decimal, charset = null) {
   decimal = Add2(decimal, 0);
   if (charset === null) {
-    let bin = DecimalToAny2(decimal, "01");
+    let bin = DecimalToAny(decimal, "01");
     let bins = Split(bin, 16);
     let decimals = bins.map((b) => parseInt(b, 2));
     return String.fromCodePoint([...decimals].reverse()).toString();
@@ -938,8 +938,8 @@ var BinaryToDecimal = function(bin) {
 
 // src/binary/Xor.js
 var Xor = function(a, b) {
-  a = DecimalToAny2(a, "01");
-  b = DecimalToAny2(b, "01");
+  a = DecimalToAny(a, "01");
+  b = DecimalToAny(b, "01");
   a = Zeros(a, b.length);
   b = Zeros(b, a.length);
   a = a.split("");
@@ -953,7 +953,7 @@ var Xor = function(a, b) {
 
 // src/binary/GetBit.js
 var GetBit = function(num, pos) {
-  num = DecimalToAny2(num, "01");
+  num = DecimalToAny(num, "01");
   num = [...num.split("")].reverse().join("");
   num = num.slice(+pos, +pos + 1);
   if (num === "") {
@@ -964,7 +964,7 @@ var GetBit = function(num, pos) {
 
 // src/binary/CountSetBits.js
 var CountSetBits = function(num) {
-  return DecimalToAny2(num, "01").replaceAll("0", "").length;
+  return DecimalToAny(num, "01").replaceAll("0", "").length;
 };
 
 // src/binary/CountDiffBits.js
@@ -974,7 +974,7 @@ var CountDiffBits = function(a, b) {
 
 // src/binary/MeasureBits.js
 var MeasureBits = function(num) {
-  return DecimalToAny2(num, "01").length;
+  return DecimalToAny(num, "01").length;
 };
 
 // src/basic/Modulus.js
@@ -1105,7 +1105,7 @@ var BinaryToAny = function(bin, charset = null) {
       decimal = Add2(decimal, pow);
     }
   }
-  return DecimalToAny2(decimal, charset);
+  return DecimalToAny(decimal, charset);
 };
 
 // src/unicode/StringToBytes.js
@@ -1155,17 +1155,17 @@ var Bases = function(str, from, to, padding = "") {
   }
   if (from !== null && to !== null) {
     if (from === "0123456789") {
-      out = DecimalToAny2(str, to);
+      out = DecimalToAny(str, to);
     } else if (to === "0123456789") {
       out = AnyToDecimal2(str, from);
     } else {
-      out = DecimalToAny2(AnyToDecimal2(str, from), to);
+      out = DecimalToAny(AnyToDecimal2(str, from), to);
     }
   } else if (from === null && to !== null && toFloat === true) {
     let bytes = StringToBytes(str);
     let hex2 = bytes.map((byte) => byte.toString(16)).join("");
     let deci = AnyToDecimal2(hex2.toUpperCase(), "0123456789ABCDEF");
-    out = DecimalToAny2(deci, to);
+    out = DecimalToAny(deci, to);
   } else if (from === null && to !== null) {
     let bytes = StringToBytes(str);
     let bin2 = bytes.map((byte) => Zeros((+byte).toString(2), 8)).join("");
@@ -1174,7 +1174,7 @@ var Bases = function(str, from, to, padding = "") {
   } else if (from !== null && to === null && fromFloat === true) {
     out = BytesToString(
       Split(
-        DecimalToAny2(AnyToDecimal2(str, from), "0123456789ABCDEF"),
+        DecimalToAny(AnyToDecimal2(str, from), "0123456789ABCDEF"),
         2
       ).map(
         (hx) => AnyToDecimal2(hx, "0123456789ABCDEF")
@@ -1297,11 +1297,11 @@ export {
   BytesToString,
   CountDiffBits,
   CountSetBits,
-  DecimalToAny2 as DecimalToAny,
+  DecimalToAny,
   Divide,
   Fibonacci,
   BinaryToAny as FromBinary,
-  DecimalToAny2 as FromDecimal,
+  DecimalToAny as FromDecimal,
   Gcd,
   GetBit,
   Greater,
