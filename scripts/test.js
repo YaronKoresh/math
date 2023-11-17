@@ -21,6 +21,7 @@ let results = [];
 /* 17 */ results.push( SubtractBinary( [ 0 ], 1, "1" ) === "-10" );
 /* 18 */ results.push( FromDecimal("511","23456789") === "999" );
 /* 19 */ results.push( Power( [2, "2"] ) === "4" );
+/* 20 */ results.push( RoundUp( 2, 2 ) == 2 );
 
 console.log("\n\n\n");
 

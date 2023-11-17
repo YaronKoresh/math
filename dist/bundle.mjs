@@ -1052,6 +1052,9 @@ var RoundUp = function(input, factor) {
   if (input.includes("-")) {
     mod = Subtract(factor, mod);
   }
+  if (Add2(input, 0) === Add2(factor, 0)) {
+    return Add2(input, 0);
+  }
   return Add2(Subtract(input, mod), factor);
 };
 
