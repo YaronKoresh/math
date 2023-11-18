@@ -19,18 +19,18 @@ export const Bases = function( str, from, to, padding = "" ){
 		return null;
 	}
 	let toBits = toLength === null ? null : MeasureBits(toLength);
-	let toFloatBits = toLength === null ? null : MeasureBits(toLength,false);
+	let toFloatBits = toLength === null ? null : Math.log2(toLength);
 	let toSize = toBits === null ? null : RoundUp(toBits,8) / toBits;
-	let toFloat = toFloatBits !== parseInt(toFloatBits);
+	let toFloat = toFloatBits !== toBits;
 
 	let fromLength = from === null ? null : from.length;
 	if (typeof fromLength === "number" && fromLength < 2) {
 		return null;
 	}
 	let fromBits = fromLength === null ? null : MeasureBits(fromLength);
-	let fromFloatBits = fromLength === null ? null : MeasureBits(fromLength,false);
+	let fromFloatBits = fromLength === null ? null : Math.log2(fromLength);
 	let fromSize = fromBits === null ? null : RoundUp(fromBits,8) / fromBits;
-	let fromFloat = fromFloatBits !== parseInt(fromFloatBits);
+	let fromFloat = fromFloatBits !== fromBits;
 
 	let num = "";
 	let out = [];
@@ -57,8 +57,8 @@ export const Bases = function( str, from, to, padding = "" ){
 	} else if( from === null && to !== null && toFloat === true ){
 
 		let bytes = StringToBytes(str);
-		let hex = bytes.map( byte => byte.toString(16) ).join("");
-		let deci = ToDecimal(hex.toUpperCase(),"0123456789ABCDEF");
+		let hx = bytes.map( byte => Zeros(FromDecimal(byte,"0123456789ABCDEF"),2) ).join("");
+		let deci = ToDecimal(hx.toUpperCase(),"0123456789ABCDEF");
 		out = FromDecimal(deci,to);
 
 	} else if( from === null && to !== null ){
@@ -71,14 +71,11 @@ export const Bases = function( str, from, to, padding = "" ){
 
 	} else if( from !== null && to === null && fromFloat === true ){
 
-		out = BytesToString(
-			Split(
-				FromDecimal(ToDecimal(str, from), "0123456789ABCDEF"),
-				2
-			).map(
-				hx => ToDecimal(hx, "0123456789ABCDEF")
-			)
-		);
+		let deci = ToDecimal(str, from);
+		let hx = FromDecimal(deci, "0123456789ABCDEF");
+		let arr = Split(hx, 2);
+		let bytes = arr.map(hx => ToDecimal(hx, "0123456789ABCDEF"));
+		out = BytesToString(bytes);
 
 	} else if( from !== null && to === null ){
 

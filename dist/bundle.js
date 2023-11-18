@@ -1200,17 +1200,17 @@ var $math = (() => {
       return null;
     }
     let toBits = toLength === null ? null : MeasureBits(toLength);
-    let toFloatBits = toLength === null ? null : MeasureBits(toLength, false);
+    let toFloatBits = toLength === null ? null : Math.log2(toLength);
     let toSize = toBits === null ? null : RoundUp(toBits, 8) / toBits;
-    let toFloat = toFloatBits !== parseInt(toFloatBits);
+    let toFloat = toFloatBits !== toBits;
     let fromLength = from === null ? null : from.length;
     if (typeof fromLength === "number" && fromLength < 2) {
       return null;
     }
     let fromBits = fromLength === null ? null : MeasureBits(fromLength);
-    let fromFloatBits = fromLength === null ? null : MeasureBits(fromLength, false);
+    let fromFloatBits = fromLength === null ? null : Math.log2(fromLength);
     let fromSize = fromBits === null ? null : RoundUp(fromBits, 8) / fromBits;
-    let fromFloat = fromFloatBits !== parseInt(fromFloatBits);
+    let fromFloat = fromFloatBits !== fromBits;
     let num = "";
     let out = [];
     if (from === to) {
@@ -1230,8 +1230,8 @@ var $math = (() => {
       }
     } else if (from === null && to !== null && toFloat === true) {
       let bytes = StringToBytes(str);
-      let hex2 = bytes.map((byte) => byte.toString(16)).join("");
-      let deci = AnyToDecimal(hex2.toUpperCase(), "0123456789ABCDEF");
+      let hx = bytes.map((byte) => Zeros(DecimalToAny(byte, "0123456789ABCDEF"), 2)).join("");
+      let deci = AnyToDecimal(hx.toUpperCase(), "0123456789ABCDEF");
       out = DecimalToAny(deci, to);
     } else if (from === null && to !== null) {
       let bytes = StringToBytes(str);
@@ -1239,14 +1239,11 @@ var $math = (() => {
       let bin = bin2 + "0".repeat((toBits - bin2.length % toBits) % toBits);
       out = BinaryToAny(bin, to);
     } else if (from !== null && to === null && fromFloat === true) {
-      out = BytesToString(
-        Split(
-          DecimalToAny(AnyToDecimal(str, from), "0123456789ABCDEF"),
-          2
-        ).map(
-          (hx) => AnyToDecimal(hx, "0123456789ABCDEF")
-        )
-      );
+      let deci = AnyToDecimal(str, from);
+      let hx = DecimalToAny(deci, "0123456789ABCDEF");
+      let arr = Split(hx, 2);
+      let bytes = arr.map((hx2) => AnyToDecimal(hx2, "0123456789ABCDEF"));
+      out = BytesToString(bytes);
     } else if (from !== null && to === null) {
       let charsLength = Split(str, fromSize).length;
       let bin = DecimalToAny(AnyToDecimal(str, from), "01");
