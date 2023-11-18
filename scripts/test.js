@@ -22,6 +22,7 @@ let results = [];
 /* 18 */ results.push( FromDecimal("511","23456789") === "999" );
 /* 19 */ results.push( Power( [2, "2"] ) === "4" );
 /* 20 */ results.push( RoundUp( 2, 2 ) == 2 );
+/* 21 */ results.push( Bases( "a1234567890", null, base62, "" ) === "9TPDmbM3ZTgshKS" );
 
 console.log("\n\n\n");
 
