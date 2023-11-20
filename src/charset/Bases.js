@@ -73,6 +73,9 @@ export const Bases = function( str, from, to, padding = "" ){
 
 		let deci = ToDecimal(str, from);
 		let hx = FromDecimal(deci, "0123456789ABCDEF");
+		if( hx.length % 2 === 1 ){
+			hx = "0" + hx;
+		}
 		let arr = Split(hx, 2);
 		let bytes = arr.map(hx => ToDecimal(hx, "0123456789ABCDEF"));
 		out = BytesToString(bytes);

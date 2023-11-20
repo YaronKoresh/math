@@ -1110,17 +1110,23 @@ var BinaryToAny = function(bin, charset = null) {
 
 // src/unicode/StringToBytes.js
 var StringToBytes = function(str) {
-  let e = new TextEncoder();
-  let arr = e.encode(str);
-  return [...arr];
+  let arr = [];
+  let index = 0;
+  while (true) {
+    let byte = str.codePointAt(index);
+    if (typeof byte === "undefined") {
+      break;
+    }
+    arr.push(byte);
+    index++;
+  }
+  return arr;
 };
 
 // src/unicode/BytesToString.js
 var BytesToString = function(...bytes) {
   bytes = bytes.flat().map((b) => parseInt(b));
-  bytes = new Uint8Array(bytes);
-  let d = new TextDecoder();
-  return d.decode(bytes);
+  return String.fromCodePoint(...bytes);
 };
 
 // src/charset/Bases.js
@@ -1174,6 +1180,9 @@ var Bases = function(str, from, to, padding = "") {
   } else if (from !== null && to === null && fromFloat === true) {
     let deci = AnyToDecimal(str, from);
     let hx = DecimalToAny(deci, "0123456789ABCDEF");
+    if (hx.length % 2 === 1) {
+      hx = "0" + hx;
+    }
     let arr = Split(hx, 2);
     let bytes = arr.map((hx2) => AnyToDecimal(hx2, "0123456789ABCDEF"));
     out = BytesToString(bytes);
