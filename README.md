@@ -382,7 +382,7 @@
 
 #### Using "StringToBytes":
 
-* Purpose: Encodes a string into Utf-8 bytes.
+* Purpose: Encodes a string into Utf-32 bytes.
 
 * Parameters:
 
@@ -398,7 +398,7 @@
 
 #### Using "BytesToString":
 
-* Purpose: Decodes Utf-8 bytes back to a string.
+* Purpose: Decodes Utf-32 bytes back to a string.
 
 * Parameters:
 
@@ -414,13 +414,13 @@
 
 #### Using "FromDecimal" / "DecimalToAny":
 
-* Purpose: Convert a decimal into other bases, or into a standard Utf-8 string.
+* Purpose: Convert a decimal into other bases, or into a standard Utf-32 string.
 
 * Parameters:
 
 * * Number: The number to be converted (required).
 
-* * Charset: The characters of the targeted base. `null` means a Utf-8 standard string (default = null).
+* * Charset: The characters of the targeted base. `null` means a Utf-32 standard string (default = null).
 
 * Examples:
 
@@ -448,13 +448,13 @@
 
 #### Using "FromBinary" / "BinaryToAny":
 
-* Purpose: Convert binary digits into other bases, or into a standard Utf-8 string.
+* Purpose: Convert binary digits into other bases, or into a standard Utf-32 string.
 
 * Parameters:
 
 * * Binary: The binary to be converted (required).
 
-* * Charset: The characters of the targeted base. `null` means a Utf-8 standard string (default = null).
+* * Charset: The characters of the targeted base. `null` means a Utf-32 standard string (default = null).
 
 * Examples:
 
@@ -466,13 +466,13 @@
 
 #### Using "ToDecimal" / "AnyToDecimal":
 
-* Purpose: Convert other bases / standard Utf-8 string, into a decimal number.
+* Purpose: Convert other bases / standard Utf-32 string, into a decimal number.
 
 * Parameters:
 
 * * Value: The value to be converted (required).
 
-* * Charset: The characters of the original value. `null` means a Utf-8 standard string (default = null).
+* * Charset: The characters of the original value. `null` means a Utf-32 standard string (default = null).
 
 * Examples:
 
@@ -484,15 +484,15 @@
 
 #### Using "Bases":
 
-* Purpose: The master function for bases conversion. Support any base/Utf8 to any base/Utf8.
+* Purpose: The master function for bases conversion. Support any base/Utf-32 to any base/Utf-32.
 
 * Parameters:
 
 * * String: The original string (required).
 
-* * From: The characters of the original value. `null` means a Utf-8 standard string (default = null).
+* * From: The characters of the original value. `null` means a Utf-32 standard string (default = null).
 
-* * To: The characters of the target base. `null` means a Utf-8 standard string (default = null).
+* * To: The characters of the target base. `null` means a Utf-32 standard string (default = null).
 
 * * Padding: The character to be used for padding in the end of the new result. Use an empty string to disable (default = "").
 
